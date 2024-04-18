@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyRecipeBook.Services"
+             x:Class="MyRecipeBook.HomePage"
+             BackgroundColor="#f0f0f5">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout" Order="Primary" Priority="0" IconImageSource="logout_icon.png" Clicked="OnLogoutClicked"/>
+        <ToolbarItem Text="Search" Order="Primary" Priority="1" IconImageSource="search_icon.png" Clicked="OnSearchClicked"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ListToStringConverter x:Key="ListToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="RecipesListView"
+                      SeparatorVisibility="None"
+                      HasUnevenRows="True"
+                      BackgroundColor="Transparent"
+                      ItemSelected="OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10"
+                                   Margin="10"
+                                   CornerRadius="15"
+                                   HasShadow="True"
+                                   BackgroundColor="White">
+                                <StackLayout>
+                                    <Image Source="{Binding Image}"
+                                           Aspect="AspectFill"
+                                           HeightRequest="200"/>
+                                    <Label Text="{Binding Name}"
+                                           FontAttributes="Bold"
+                                           FontSize="Medium"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Ingredients, Converter={StaticResource ListToStringConverter}}"
+                                           FontSize="Small"
+                                           VerticalOptions="End"
+                                           HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
